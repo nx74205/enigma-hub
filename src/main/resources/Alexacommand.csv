@@ -1,0 +1,5 @@
+SwitchOn;powerstate;?newstate=4;Receiver wird eingeschaltet;Receiver konnte nicht eingeschaltet werden;""
+SwitchOff;powerstate;?newstate=5;Receiver wird ausgeschaltet;Receiver konnte nicht ausgeschaltet werden;""
+Mute;vol;?set=mute;OK;Es ist ein Fehler aufgetreten;""
+TimeshiftOff;remotecontrol;?command=128;Timeshift wird beendet;Es ist ein Fehler aufgetreten;PressOk
+PressOk;remotecontrol;?command=352;Timeshift wird beendet;Es ist ein Fehler aufgetreten;""

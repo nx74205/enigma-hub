@@ -1,0 +1,41 @@
+{
+  "session": {
+    "new": true,
+    "sessionId": "SessionId.xxxxxxxx-yyyy-zzzz-aaaa-bbbbbbbbbbbb",
+    "application": {
+      "applicationId": "amzn1.ask.skill.d06894cf-8e95-4bb8-bf75-27d130651f32"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.***************************************************************************************************************************************************************************************************************"
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.9682d9f8-45b0-42a4-b5fe-96923f8b82aa",
+    "intent": {
+      "name": "switchOn",
+      "slots": {}
+    },
+    "locale": "de-DE",
+    "timestamp": "2017-12-01T13:27:30Z"
+  },
+  "context": {
+    "AudioPlayer": {
+      "playerActivity": "IDLE"
+    },
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.d06894cf-8e95-4bb8-bf75-27d130651f32"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.***************************************************************************************************************************************************************************************************************"
+      },
+      "device": {
+        "supportedInterfaces": {}
+      }
+    }
+  },
+  "version": "1.0"
+}
+
