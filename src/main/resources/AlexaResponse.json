@@ -3,7 +3,7 @@
   "response": {
     "outputSpeech": {
       "type": "PlainText",
-      "text": "Alles klar!",
+      "text": "Alles klar!"
     },
 
     "shouldEndSession": false

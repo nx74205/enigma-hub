@@ -1,4 +1,4 @@
-package de.couchkiwi.enigmahub.model;
+package de.couchkiwi.enigmahub.model.enigma;
 
 import java.io.Serializable;
 

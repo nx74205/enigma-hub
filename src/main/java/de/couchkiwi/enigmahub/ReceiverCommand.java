@@ -2,7 +2,7 @@ package de.couchkiwi.enigmahub;
 
 import de.couchkiwi.enigmahub.model.AmazonRequest;
 import de.couchkiwi.enigmahub.model.AmazonResponse;
-import de.couchkiwi.enigmahub.model.EnigmaRequest;
+import de.couchkiwi.enigmahub.model.enigma.EnigmaRequest;
 import de.couchkiwi.enigmahub.service.AlexaCommandService;
 import de.couchkiwi.enigmahub.service.CallEnigmaService;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package de.couchkiwi.enigmahub.service;
 
-import de.couchkiwi.enigmahub.model.EnigmaRequest;
+import de.couchkiwi.enigmahub.model.enigma.EnigmaRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

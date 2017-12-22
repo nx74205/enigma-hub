@@ -1,6 +1,8 @@
 package de.couchkiwi.enigmahub.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class AmazonRequest implements Serializable {
@@ -45,6 +47,8 @@ public class AmazonRequest implements Serializable {
     }
 
     public static class Session {
+
+        @JsonProperty("new")
         private boolean lnew;
         private String sessionId;
         private Application application;

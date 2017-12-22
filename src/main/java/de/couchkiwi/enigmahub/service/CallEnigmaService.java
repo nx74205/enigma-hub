@@ -1,7 +1,7 @@
 package de.couchkiwi.enigmahub.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.couchkiwi.enigmahub.model.EnigmaResponse;
+import de.couchkiwi.enigmahub.model.enigma.EnigmaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
