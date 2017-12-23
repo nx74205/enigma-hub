@@ -3,20 +3,38 @@ package de.couchkiwi.enigmahub.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class AlexaCommonEndpoints implements Serializable {
 
-    private Endpoints[] endpoints;
+    private List<Endpoints> endpoints;
+
+    public List<Endpoints> getEndpoints() {
+        return endpoints;
+    }
+
+    public void setEndpoints(List<Endpoints> endpoints) {
+        this.endpoints = endpoints;
+    }
 
     public static class Endpoints {
 
         private String endpointId;
         private String friendlyName;
         private String description;
+        private String manufacturerName;
         private String[] displayCategories;
 
         private Cookie cookie;
-        private Capabilities[] capabilities;
+        private List<Capabilities> capabilities;
+
+        public String getManufacturerName() {
+            return manufacturerName;
+        }
+
+        public void setManufacturerName(String manufacturerName) {
+            this.manufacturerName = manufacturerName;
+        }
 
         public String getEndpointId() {
             return endpointId;
@@ -58,11 +76,11 @@ public class AlexaCommonEndpoints implements Serializable {
             this.cookie = cookie;
         }
 
-        public Capabilities[] getCapabilities() {
+        public List<Capabilities> getCapabilities() {
             return capabilities;
         }
 
-        public void setCapabilities(Capabilities[] capabilities) {
+        public void setCapabilities(List<Capabilities> capabilities) {
             this.capabilities = capabilities;
         }
 
@@ -149,15 +167,15 @@ public class AlexaCommonEndpoints implements Serializable {
 
             public static class CapProperties {
 
-                private Supported[] supported;
+                private List<Supported> supported;
                 boolean proactivelyReported;
                 boolean retrievable;
 
-                public Supported[] getSupported() {
+                public List<Supported> getSupported() {
                     return supported;
                 }
 
-                public void setSupported(Supported[] supported) {
+                public void setSupported(List<Supported> supported) {
                     this.supported = supported;
                 }
 
@@ -177,7 +195,7 @@ public class AlexaCommonEndpoints implements Serializable {
                     this.retrievable = retrievable;
                 }
 
-                public class Supported {
+                public static class Supported {
                     private String name;
 
                     public String getName() {

@@ -1,6 +1,8 @@
 package de.couchkiwi.enigmahub.service;
 
+import de.couchkiwi.enigmahub.DiscoverResponse;
 import de.couchkiwi.enigmahub.model.AlexaDiscoverRequest;
+import de.couchkiwi.enigmahub.model.AlexaDiscoverResponse;
 import de.couchkiwi.enigmahub.model.AmazonRequest;
 import de.couchkiwi.enigmahub.model.AmazonResponse;
 import de.couchkiwi.enigmahub.ReceiverCommand;
@@ -30,9 +32,13 @@ public class RestService {
     }
 
     @RequestMapping(value = "/alexadiscover", method=RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
-    public void AlexaDiscover(@RequestBody AlexaDiscoverRequest alexaDiscoverRequest) {
+    public AlexaDiscoverResponse AlexaDiscover(@RequestBody AlexaDiscoverRequest alexaDiscoverRequest) {
 
         log.info(alexaDiscoverRequest.toString());
+
+        DiscoverResponse discoverResponse = new DiscoverResponse();
+
+        return discoverResponse.discover(alexaDiscoverRequest);
         //AmazonResponse ams = receiverCommand.getCommand(amazonRequest);
   //      AmazonResponse ams = new AmazonResponse();
  //       return ams;
