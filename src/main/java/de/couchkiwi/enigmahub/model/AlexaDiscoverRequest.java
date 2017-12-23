@@ -6,7 +6,7 @@ import de.couchkiwi.enigmahub.model.AlexaCommonPayload;
 
 import java.io.Serializable;
 
-public class AlexaDiscover implements Serializable {
+public class AlexaDiscoverRequest implements Serializable {
     Directive directive;
 
     public Directive getDirective() {
@@ -41,4 +41,10 @@ public class AlexaDiscover implements Serializable {
             this.payload = payload;
         }
     }
+    @Override
+    public String toString() {
+        return "Namespace/Name: " + this.getDirective().getHeader().getNamespace() + " " + this.getDirective().getHeader().getName();
+
+    }
+
 }
