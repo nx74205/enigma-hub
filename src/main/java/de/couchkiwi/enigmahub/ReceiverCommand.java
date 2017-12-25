@@ -3,7 +3,7 @@ package de.couchkiwi.enigmahub;
 import de.couchkiwi.enigmahub.model.AmazonRequest;
 import de.couchkiwi.enigmahub.model.AmazonResponse;
 import de.couchkiwi.enigmahub.model.enigma.EnigmaRequest;
-import de.couchkiwi.enigmahub.service.AlexaCommandService;
+import de.couchkiwi.enigmahub.service.AlexaCredentialService;
 import de.couchkiwi.enigmahub.service.CallEnigmaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +20,10 @@ public class ReceiverCommand {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public ReceiverCommand() {
-        log.info("Running Constructor");
     }
 
     @Autowired
-    AlexaCommandService alexaCommandService;
+    AlexaCredentialService alexaCredentialService;
 
     public AmazonResponse getCommand(AmazonRequest request) {
 
@@ -63,7 +62,7 @@ public class ReceiverCommand {
         EnigmaRequest e;
         CallEnigmaService callEnigmaService = new CallEnigmaService();
 
-        e = alexaCommandService.getCommand(commandToken);
+        e = alexaCredentialService.getCommand(commandToken);
 
         if (e != null) {
             if (callEnigmaService.sendCommand(ENIGMA_URL, e.getApi(), e.getParameter())) {

@@ -43,7 +43,8 @@ public class AlexaDiscoverRequest implements Serializable {
     }
     @Override
     public String toString() {
-        return "Namespace/Name: " + this.getDirective().getHeader().getNamespace() + " " + this.getDirective().getHeader().getName();
+        return "Namespace/Name: " + this.getDirective().getHeader().getNamespace() + " " + this.getDirective().getHeader().getName() + "/n" +
+               "Token:          " + this.getDirective().getPayload().getScope().getToken();
 
     }
 

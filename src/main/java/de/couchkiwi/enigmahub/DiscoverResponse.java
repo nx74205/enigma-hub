@@ -3,11 +3,9 @@ package de.couchkiwi.enigmahub;
 import de.couchkiwi.enigmahub.model.*;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class DiscoverResponse {
 
     public AlexaDiscoverResponse discover(AlexaDiscoverRequest request) {
@@ -29,19 +27,19 @@ public class DiscoverResponse {
         List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> powerControllerSupported = new ArrayList<>();
         List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> speakerSupported = new ArrayList<>();
 
-        header.setMessageId("GIVE_IT_A_TRY");
+        header.setMessageId("38A28869-DD5E-48CE-BBE5-A4DB78CECB28");
         header.setName("Discover.Response");
-        header.setNamespace("Alexa.discovery");
+        header.setNamespace("Alexa.Discovery");
         header.setPayloadVersion("3");
 
         event.setHeader(header);
 
         cookie.setExtradetail1("Detail 1");
-        cookie.setExtradetail2("Detail 2");
-        cookie.setExtradetail3("Detail 3");
+        cookie.setExtraDetail2("Detail 2");
+        cookie.setExtraDetail3("Detail 3");
         cookie.setExtradetail4("Detail 4");
 
-        powerControllerSupported.add(setSupported("powerstate"));
+        powerControllerSupported.add(setSupported("powerState"));
 
         speakerSupported.add(setSupported("volume"));
         speakerSupported.add(setSupported("muted"));
@@ -55,7 +53,7 @@ public class DiscoverResponse {
 
         endpoint.add(setEndpoint("ET9000", "Xtrend ET9000", "Enigma SAT-Receiver","Xtrend", displayCategories, cookie, capabilities)) ;
 
-        payload.setEndpoint(endpoint);
+        payload.setEndpoints(endpoint);
         event.setHeader(header);
         event.setPayload(payload);
 

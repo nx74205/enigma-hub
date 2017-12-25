@@ -1,7 +1,10 @@
 package de.couchkiwi.enigmahub.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlexaCommonHeader implements Serializable {
     private String namespace;
     private String name;

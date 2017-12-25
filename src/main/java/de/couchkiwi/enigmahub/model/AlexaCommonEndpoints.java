@@ -84,43 +84,44 @@ public class AlexaCommonEndpoints implements Serializable {
             this.capabilities = capabilities;
         }
 
+
         public static class Cookie {
 
-            private String extradetail1;
-            private String extradetail2;
-            private String extradetail3;
-            private String extradetail4;
+            private String extraDetail1;
+            private String extraDetail2;
+            private String extraDetail3;
+            private String extraDetail4;
 
             public String getExtradetail1() {
-                return extradetail1;
+                return extraDetail1;
             }
 
             public void setExtradetail1(String extradetail1) {
-                this.extradetail1 = extradetail1;
+                this.extraDetail1 = extradetail1;
             }
 
-            public String getExtradetail2() {
-                return extradetail2;
+            public String getExtraDetail2() {
+                return extraDetail2;
             }
 
-            public void setExtradetail2(String extradetail2) {
-                this.extradetail2 = extradetail2;
+            public void setExtraDetail2(String extraDetail2) {
+                this.extraDetail2 = extraDetail2;
             }
 
-            public String getExtradetail3() {
-                return extradetail3;
+            public String getExtraDetail3() {
+                return extraDetail3;
             }
 
-            public void setExtradetail3(String extradetail3) {
-                this.extradetail3 = extradetail3;
+            public void setExtraDetail3(String extraDetail3) {
+                this.extraDetail3 = extraDetail3;
             }
 
             public String getExtradetail4() {
-                return extradetail4;
+                return extraDetail4;
             }
 
             public void setExtradetail4(String extradetail4) {
-                this.extradetail4 = extradetail4;
+                this.extraDetail4 = extradetail4;
             }
         }
 

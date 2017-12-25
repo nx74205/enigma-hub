@@ -1,15 +1,17 @@
 package de.couchkiwi.enigmahub.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlexaCommonPayload implements Serializable {
 
     @JsonProperty("scope")
-    AlexaCommonScope scope;
-    List<AlexaCommonEndpoints.Endpoints> endpoint;
+    private AlexaCommonScope scope;
+    private List<AlexaCommonEndpoints.Endpoints> endpoints;
 
     public AlexaCommonScope getScope() {
         return scope;
@@ -19,12 +21,12 @@ public class AlexaCommonPayload implements Serializable {
         this.scope = scope;
     }
 
-    public List<AlexaCommonEndpoints.Endpoints> getEndpoint() {
-        return endpoint;
+    public List<AlexaCommonEndpoints.Endpoints> getEndpoints() {
+        return endpoints;
     }
 
-    public void setEndpoint(List<AlexaCommonEndpoints.Endpoints> endpoint) {
-        this.endpoint = endpoint;
+    public void setEndpoints(List<AlexaCommonEndpoints.Endpoints> endpoints) {
+        this.endpoints = endpoints;
     }
 }
 

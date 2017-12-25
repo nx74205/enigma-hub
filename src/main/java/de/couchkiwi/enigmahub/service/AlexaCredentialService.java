@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 
 @Service
-public class AlexaCommandService {
+public class AlexaCredentialService {
 
     @Value(("${alexa_command_file}"))
     private String fileName;
@@ -22,7 +22,7 @@ public class AlexaCommandService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private HashMap<String, EnigmaRequest> commandline;
 
-    public AlexaCommandService() {
+    public AlexaCredentialService() {
     }
 
     @PostConstruct
