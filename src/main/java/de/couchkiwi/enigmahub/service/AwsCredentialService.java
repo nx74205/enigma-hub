@@ -15,8 +15,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
+/*
+    This is the clientservice to translate the token got from AWS to a valid E-Mail Address.
+ */
 @Component
-public class CredentialService {
+public class AwsCredentialService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final String  URI = "https://api.amazon.com/user/profile";
@@ -24,7 +27,7 @@ public class CredentialService {
     private HashMap<String, AmazonCredentialResponse> credentialList;
 
     @Autowired
-    public CredentialService() {
+    public AwsCredentialService() {
         credentialList = new HashMap<String, AmazonCredentialResponse>();
         log.debug("Hashmap for Credentials initialized!");
     }
@@ -63,5 +66,15 @@ public class CredentialService {
 
         return amazonCredentialResponse;
 
+    }
+
+    public String getEmailFromCredential(String token) {
+
+        if (credentialList.containsKey(token)) {
+            log.debug("Token found for E-Mail");
+            return credentialList.get(token).getEmail();
+        } else {
+            return null;
+        }
     }
 }

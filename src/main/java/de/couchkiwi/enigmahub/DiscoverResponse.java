@@ -1,14 +1,21 @@
 package de.couchkiwi.enigmahub;
 
 import de.couchkiwi.enigmahub.model.*;
+import de.couchkiwi.enigmahub.model.enigma.EnigmaRequest;
+import de.couchkiwi.enigmahub.service.AwsCredentialService;
+import de.couchkiwi.enigmahub.service.ReceiverSubscribeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DiscoverResponse {
 
-    public AlexaDiscoverResponse discover(AlexaDiscoverRequest request) {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public AlexaDiscoverResponse discover(AlexaDiscoverRequest request, AwsCredentialService acs, ReceiverSubscribeService rss) {
 
         AlexaDiscoverResponse response = new AlexaDiscoverResponse();
 
@@ -16,51 +23,89 @@ public class DiscoverResponse {
         AlexaCommonHeader header = new AlexaCommonHeader();
         AlexaCommonPayload payload = new AlexaCommonPayload();
 
-        List<AlexaCommonEndpoints.Endpoints> endpoint = new ArrayList<>();
         String[] displayCategories = {"TV"};
+
         AlexaCommonEndpoints.Endpoints.Cookie cookie = new AlexaCommonEndpoints.Endpoints.Cookie();
-        List<AlexaCommonEndpoints.Endpoints.Capabilities> capabilities = new ArrayList<AlexaCommonEndpoints.Endpoints.Capabilities>();
-
-        AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties speakerProperties = new AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties();
-        AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties powerControllerProperties = new AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties();
-
-        List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> powerControllerSupported = new ArrayList<>();
-        List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> speakerSupported = new ArrayList<>();
-
-        header.setMessageId("38A28869-DD5E-48CE-BBE5-A4DB78CECB28");
-        header.setName("Discover.Response");
-        header.setNamespace("Alexa.Discovery");
-        header.setPayloadVersion("3");
-
-        event.setHeader(header);
-
         cookie.setExtradetail1("Detail 1");
         cookie.setExtraDetail2("Detail 2");
         cookie.setExtraDetail3("Detail 3");
         cookie.setExtradetail4("Detail 4");
 
-        powerControllerSupported.add(setSupported("powerState"));
+        header.setMessageId(UUID.randomUUID().toString());
+        header.setName("Discover.Response");
+        header.setNamespace("Alexa.Discovery");
+        header.setPayloadVersion("3");
 
-        speakerSupported.add(setSupported("volume"));
-        speakerSupported.add(setSupported("muted"));
+        String token = request.getDirective().getPayload().getScope().getToken();
 
-        powerControllerProperties.setSupported(powerControllerSupported);
-        powerControllerProperties.setProactivelyReported(true);
-        powerControllerProperties.setProactivelyReported(true);
+        String mailAddress = acs.getEmailFromCredential(token);
 
-        capabilities.add(setcapabilities("AlexaInterface", "Alexa.PowerController", "3", powerControllerSupported, true, true));
-        capabilities.add(setcapabilities("AlexaInterface", "Alexa.Speaker", "1.0", speakerSupported, false, false));
+        SortedMap<String, EnigmaRequest> userEntries = rss.getAlexaUserlist().subMap(mailAddress, mailAddress+"\uFFFF");
+        List<AlexaCommonEndpoints.Endpoints> endpoint = new ArrayList<>();
 
-        endpoint.add(setEndpoint("ET9000", "Xtrend ET9000", "Enigma SAT-Receiver","Xtrend", displayCategories, cookie, capabilities)) ;
+        for(Map.Entry entry: userEntries.entrySet()) {
 
+            String userEndpoint =  userEntries.get(entry.getKey()).getReceiverModell();
+
+            List<AlexaCommonEndpoints.Endpoints.Capabilities> capabilities = new ArrayList<AlexaCommonEndpoints.Endpoints.Capabilities>();
+
+            List<String> userCapabilities = userEntries.get(entry.getKey()).getCapabilities();
+
+            for (String c : userCapabilities) {
+
+                switch (c) {
+                    case "Alexa.PowerController":
+                        List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> powerControllerSupported = new ArrayList<>();
+                        powerControllerSupported.add(setSupported("powerState"));
+
+                        AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties powerControllerProperties = new AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties();
+                        powerControllerProperties.setSupported(powerControllerSupported);
+                        powerControllerProperties.setProactivelyReported(true);
+                        powerControllerProperties.setRetrievable(true);
+
+                        capabilities.add(setcapabilities(
+                                "AlexaInterface",
+                                "Alexa.PowerController",
+                                "3", powerControllerSupported,
+                                true,
+                                true));
+                        break;
+
+                    case "Alexa.Speaker":
+                        List<AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties.Supported> speakerSupported = new ArrayList<>();
+                        speakerSupported.add(setSupported("volume"));
+                        speakerSupported.add(setSupported("muted"));
+
+                        AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties speakerProperties = new AlexaCommonEndpoints.Endpoints.Capabilities.CapProperties();
+                        speakerProperties.setSupported(speakerSupported);
+                        capabilities.add(setcapabilities(
+                                "AlexaInterface",
+                                "Alexa.Speaker",
+                                "1.0",
+                                speakerSupported,
+                                false,
+                                false));
+                        break;
+                }
+            }
+
+            endpoint.add(setEndpoint(userEndpoint,
+                    userEndpoint,
+                    "Enigma SAT-Receiver",
+                    "Enigma",
+                    displayCategories,
+                    cookie,
+                    capabilities));
+
+        }
+
+        event.setHeader(header);
         payload.setEndpoints(endpoint);
         event.setHeader(header);
         event.setPayload(payload);
-
         response.setEvent(event);
 
         return response;
-
 
     }
 
@@ -86,7 +131,6 @@ public class DiscoverResponse {
         return endpoint;
 
     }
-
 
     private AlexaCommonEndpoints.Endpoints.Capabilities setcapabilities
             (String type,

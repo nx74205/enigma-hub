@@ -3,49 +3,58 @@ package de.couchkiwi.enigmahub.model.enigma;
 import java.io.Serializable;
 
 public class EnigmaResponse implements Serializable {
-    private boolean instandby;
-    private boolean result;
-    private int current;
-    private String message;
-    private boolean ismute;
 
-    public boolean isInstandby() {
-        return instandby;
+    private String eMailAddress;
+    private String receiverModell;
+    private String alexaCommand;
+    private String EnigmaApi;
+    private String Enigmaparameter;
+
+    public EnigmaResponse(String eMailAddress, String receiverModell, String alexaCommand, String enigmaApi, String enigmaparameter) {
+        this.eMailAddress = eMailAddress;
+        this.receiverModell = receiverModell;
+        this.alexaCommand = alexaCommand;
+        EnigmaApi = enigmaApi;
+        Enigmaparameter = enigmaparameter;
     }
 
-    public void setInstandby(boolean instandby) {
-        this.instandby = instandby;
+    public String geteMailAddress() {
+        return eMailAddress;
     }
 
-    public boolean isResult() {
-        return result;
+    public void seteMailAddress(String eMailAddress) {
+        this.eMailAddress = eMailAddress;
     }
 
-    public void setResult(boolean result) {
-        this.result = result;
+    public String getReceiverModell() {
+        return receiverModell;
     }
 
-    public int getCurrent() {
-        return current;
+    public void setReceiverModell(String receiverModell) {
+        this.receiverModell = receiverModell;
     }
 
-    public void setCurrent(int current) {
-        this.current = current;
+    public String getAlexaCommand() {
+        return alexaCommand;
     }
 
-    public String getMessage() {
-        return message;
+    public void setAlexaCommand(String alexaCommand) {
+        this.alexaCommand = alexaCommand;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getEnigmaApi() {
+        return EnigmaApi;
     }
 
-    public boolean isIsmute() {
-        return ismute;
+    public void setEnigmaApi(String enigmaApi) {
+        EnigmaApi = enigmaApi;
     }
 
-    public void setIsmute(boolean ismute) {
-        this.ismute = ismute;
+    public String getEnigmaparameter() {
+        return Enigmaparameter;
+    }
+
+    public void setEnigmaparameter(String enigmaparameter) {
+        Enigmaparameter = enigmaparameter;
     }
 }

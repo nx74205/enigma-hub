@@ -1,74 +1,44 @@
 package de.couchkiwi.enigmahub.model.enigma;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class EnigmaRequest implements Serializable {
-    private String alexaCommand;
-    private String api;
-    private String parameter;
-    private String okText;
-    private String errorText;
-    private String nextAlexaCommand;
+    private String eMailAddress;
+    private String receiverModell;
+    private List<String> capabilities;
+    private Timestamp timestamp;
 
-    // Getter & Setter
-
-    public String getOkText() {
-        return okText;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setOkText(String okText) {
-        if (okText == null || okText.equals("")) {
-            this.okText = "OK";
-        } else {
-            this.okText = okText;
-        }
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getErrorText() {
-        return errorText;
+    public List<String> getCapabilities() {
+        return capabilities;
     }
 
-    public void setErrorText(String errorText) {
-        if (errorText == null || errorText.equals("")) {
-            this.errorText = "OK";
-        } else {
-            this.errorText = errorText;
-        }
+    public void setCapabilities(List<String> capabilities) {
+        this.capabilities = capabilities;
     }
 
-    public String getAlexaCommand() {
-        return alexaCommand;
+    public String geteMailAddress() {
+        return eMailAddress;
     }
 
-    public void setAlexaCommand(String alexaCommand) {
-        this.alexaCommand = alexaCommand;
+    public void seteMailAddress(String eMailAddress) {
+        this.eMailAddress = eMailAddress;
     }
 
-    public String getNextAlexaCommand() {
-        return nextAlexaCommand;
+    public String getReceiverModell() {
+        return receiverModell;
     }
 
-    public void setNextAlexaCommand(String nextAlexaCommand) {
-        this.nextAlexaCommand = nextAlexaCommand;
+    public void setReceiverModell(String receiverModell) {
+        this.receiverModell = receiverModell;
     }
-
-    public String getApi() {
-        return api;
-    }
-
-    public void setApi(String api) {
-        this.api = api;
-    }
-
-    public String getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(String parameter) {
-        if (parameter == null)
-            this.parameter = "";
-        else
-            this.parameter = parameter;
-    }
-
 }
