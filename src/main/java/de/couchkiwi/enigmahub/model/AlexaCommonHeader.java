@@ -10,6 +10,15 @@ public class AlexaCommonHeader implements Serializable {
     private String name;
     private String payloadVersion;
     private String messageId;
+    private String CorrelationToken;
+
+    public String getCorrelationToken() {
+        return CorrelationToken;
+    }
+
+    public void setCorrelationToken(String correlationToken) {
+        CorrelationToken = correlationToken;
+    }
 
     public String getNamespace() {
         return namespace;

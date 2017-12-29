@@ -19,6 +19,9 @@ public class ReceiverSubscribeService {
     private NavigableMap<String, EnigmaRequest> alexaUserlist;
 
     @Autowired
+    ClientRestService crs;
+
+    @Autowired
     public ReceiverSubscribeService() {
 
         this.alexaUserlist = new TreeMap<>();
@@ -40,5 +43,11 @@ public class ReceiverSubscribeService {
             log.debug("User " + s.geteMailAddress() + " with Receiver " + s.getReceiverModell() + " already subscribed!");
         }
         return true;
+    }
+
+    public boolean setResult(String eMailAddress, String receiverModell, String alexaCommand) {
+
+        return crs.setResult(eMailAddress, receiverModell, alexaCommand);
+
     }
 }
