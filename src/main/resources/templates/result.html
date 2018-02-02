@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Handling Form Submission</title>
+</head>
+<body>
+	<h1>Result</h1>
+    <form action="#" th:action="@{/redirect}" th:object="${alexaRegister}" method="post">
+        <p th:text="'Clint-ID: ' + ${alexaRegister.client_id}" />
+        <p th:text="'Token:    ' + ${alexaRegister.dumbToken}" />
+        <p><input type="hidden" th:field="*{dumbToken}" /></p>
+        <p><input type="hidden" th:field="*{state}" /></p>
+        <p><input type="hidden" th:field="*{client_id}" /></p>
+        <p><input type="hidden" th:field="*{response_type}" /></p>
+        <p><input type="hidden" th:field="*{uri}" /></p>
+
+        <p><input type="submit" /></p>
+    </form>
+</body>
+</html>
+
+
