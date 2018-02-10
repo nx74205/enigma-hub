@@ -8,7 +8,7 @@ public class DumbAuth {
     private String refresh_token;
 
     public DumbAuth() {
-        this.expires_in = 999999;
+        this.expires_in = 999999999;
         this.token_type = "Bearer";
     }
 

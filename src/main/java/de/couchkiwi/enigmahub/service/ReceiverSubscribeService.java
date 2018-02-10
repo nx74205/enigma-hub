@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -35,19 +34,19 @@ public class ReceiverSubscribeService {
     public boolean subscribe (EnigmaRequest s) {
 
 
-        if(!alexaUserlist.containsKey(s.geteMailAddress()+s.getReceiverModell())) {
+        if(!alexaUserlist.containsKey(s.getIdToken()+s.getReceiverModell())) {
             EnigmaRequest subscribedEntry = s;
-            alexaUserlist.put(s.geteMailAddress()+s.getReceiverModell(), subscribedEntry);
-            log.debug("User " + s.geteMailAddress() + " with Receiver " + s.getReceiverModell() + " subscribed to Service!");
+            alexaUserlist.put(s.getIdToken()+s.getReceiverModell(), subscribedEntry);
+            log.debug("User " + s.getIdToken() + " with Receiver " + s.getReceiverModell() + " subscribed to Service!");
         } else {
-            log.debug("User " + s.geteMailAddress() + " with Receiver " + s.getReceiverModell() + " already subscribed!");
+            log.debug("User " + s.getIdToken() + " with Receiver " + s.getReceiverModell() + " already subscribed!");
         }
         return true;
     }
 
-    public boolean setResult(String eMailAddress, String receiverModell, String alexaCommand) {
+    public boolean setResult(String idToken, String receiverModell, String alexaCommand) {
 
-        return crs.setResult(eMailAddress, receiverModell, alexaCommand);
+        return crs.setResult(idToken, receiverModell, alexaCommand);
 
     }
 }

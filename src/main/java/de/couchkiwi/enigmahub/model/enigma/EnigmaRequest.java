@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class EnigmaRequest implements Serializable {
-    private String eMailAddress;
+    private String idToken;
     private String receiverModell;
     private List<String> capabilities;
     private Timestamp timestamp;
@@ -26,12 +26,12 @@ public class EnigmaRequest implements Serializable {
         this.capabilities = capabilities;
     }
 
-    public String geteMailAddress() {
-        return eMailAddress;
+    public String getIdToken() {
+        return idToken;
     }
 
-    public void seteMailAddress(String eMailAddress) {
-        this.eMailAddress = eMailAddress;
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
     }
 
     public String getReceiverModell() {

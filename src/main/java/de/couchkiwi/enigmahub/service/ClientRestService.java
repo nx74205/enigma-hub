@@ -26,40 +26,42 @@ public class ClientRestService {
     @ResponseBody
     public DeferredResult<EnigmaResponse> receiverRequest (@RequestBody EnigmaRequest enigmaRequest) {
 
+        // Case a new Client connects, register him for service
         rss.subscribe(enigmaRequest);
+
         EnigmaResponse defaultEnigmaResponse = new EnigmaResponse
-                (enigmaRequest.geteMailAddress(), enigmaRequest.getReceiverModell(),   "NO_COMAND", "", "");
+                (enigmaRequest.getIdToken(), enigmaRequest.getReceiverModell(),   "NO_COMAND", "", "");
 
         final DeferredResult<EnigmaResponse> result = new DeferredResult<EnigmaResponse>(TIMEOUT, defaultEnigmaResponse);
 
-        this.commandRequest.put(enigmaRequest.geteMailAddress()+enigmaRequest.getReceiverModell(), result);
+        this.commandRequest.put(enigmaRequest.getIdToken()+enigmaRequest.getReceiverModell(), result);
 
         result.onCompletion(new Runnable() {
             public void run() {
-                commandRequest.remove(enigmaRequest.geteMailAddress()+enigmaRequest.getReceiverModell());
+                commandRequest.remove(enigmaRequest.getIdToken()+enigmaRequest.getReceiverModell());
             }
         });
 
         result.onTimeout (new Runnable() {
             public void run() {
                 log.debug("Request Timed Out. Sending NO_COMMAND message!");
-                commandRequest.remove(enigmaRequest.geteMailAddress()+enigmaRequest.getReceiverModell());
+                commandRequest.remove(enigmaRequest.getIdToken()+enigmaRequest.getReceiverModell());
             }
         });
 
         return result;
     }
 
-    public boolean setResult(String eMailAddress, String receiverModell, String alexaCommand) {
+    public boolean setResult(String idToken, String receiverModell, String alexaCommand) {
 
-        if (this.commandRequest.containsKey(eMailAddress+receiverModell)) {
-            DeferredResult<EnigmaResponse> result = (DeferredResult<EnigmaResponse>) this.commandRequest.get(eMailAddress+receiverModell);
-            result.setResult(new EnigmaResponse(eMailAddress, receiverModell,alexaCommand,"", ""));
+        if (this.commandRequest.containsKey(idToken+receiverModell)) {
+            DeferredResult<EnigmaResponse> result = (DeferredResult<EnigmaResponse>) this.commandRequest.get(idToken+receiverModell);
+            result.setResult(new EnigmaResponse(idToken, receiverModell, alexaCommand,"", ""));
 
             return true;
 
         } else {
-            log.debug("No Active connection found for " + eMailAddress + " with Receiver " + receiverModell);
+            log.debug("No Active connection found for " + idToken + " with Receiver " + receiverModell);
             return false;
         }
 

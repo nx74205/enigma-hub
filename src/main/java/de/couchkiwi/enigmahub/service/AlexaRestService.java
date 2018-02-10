@@ -56,10 +56,12 @@ public class AlexaRestService {
 
     }
 
-    @RequestMapping(value = "/auth", method= RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public DumbAuth auth(@RequestParam(value="code", required=false) String code) {
+    @RequestMapping(value = "/auth", method= RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+    public DumbAuth auth(@RequestParam(value="grant_type", required=false) String grantType,
+                         @RequestParam(value="code", required=false) String code,
+                         @RequestParam(value="redirect_uri", required=false) String RedirectUri) {
 
-
+        log.debug("Inside Token Enpoint!");
         DumbAuth dumbAuth = new DumbAuth();
 
         dumbAuth.setAccess_token(code);

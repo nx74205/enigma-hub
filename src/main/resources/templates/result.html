@@ -1,20 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Getting Started: Handling Form Submission</title>
+    <title>ID-Token beziehen</title>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
 </head>
 <body>
-	<h1>Result</h1>
+<h3 style="text-align:center">
+<p>Enigma Proxy</p>
+
+<hr />
+
+	Bitte notieren Sie sich den unten angegebenen ID-Token und tragen Sie diesen in den Client ein.</h3>
     <form action="#" th:action="@{/redirect}" th:object="${alexaRegister}" method="post">
-        <p th:text="'Clint-ID: ' + ${alexaRegister.client_id}" />
-        <p th:text="'Token:    ' + ${alexaRegister.dumbToken}" />
+    <h4 style="text-align:center">
+
+        <bold><p th:text="${alexaRegister.dumbToken}" /></bold>
+
         <p><input type="hidden" th:field="*{dumbToken}" /></p>
         <p><input type="hidden" th:field="*{state}" /></p>
         <p><input type="hidden" th:field="*{client_id}" /></p>
         <p><input type="hidden" th:field="*{response_type}" /></p>
         <p><input type="hidden" th:field="*{uri}" /></p>
 
-        <p><input type="submit" /></p>
+        <p><input type="submit" value="OK" /></p>
+    </h4>
     </form>
 </body>
 </html>

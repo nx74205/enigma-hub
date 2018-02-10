@@ -1,19 +1,23 @@
 package de.couchkiwi.enigmahub.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.couchkiwi.enigmahub.model.AlexaRegister;
-import de.couchkiwi.enigmahub.model.DumbAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.IOException;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Instant;
+import java.time.LocalDate;
 
 @Controller
 public class DumbAuthController {
@@ -28,39 +32,42 @@ public class DumbAuthController {
                                   @RequestParam(value="redirect_uri", required=false) String uri,
                                   Model model) {
 
+        Instant instant = Instant.now();
+        Long timeStampSeconds = instant.getEpochSecond() - 1400000000;
+
         AlexaRegister alexaRegister = new AlexaRegister();
 
         alexaRegister.setState(state);
         alexaRegister.setClient_id(client_id);
         alexaRegister.setResponse_type(response_type);
         alexaRegister.setScope(scope);
-        alexaRegister.setDumbToken("641109110001");
+        alexaRegister.setDumbToken(timeStampSeconds.toString());
         alexaRegister.setUri(uri);
 
         model.addAttribute("alexaRegister", alexaRegister);
 
         return "result";
     }
+/*
 
-    @PostMapping("/redirect")
-    public String redirect(@ModelAttribute("alexaRegister") AlexaRegister alexaRegister) {
-        String url = alexaRegister.getUri();
-        String parameter = "?state=" + alexaRegister.getState() + "&code=" + alexaRegister.getDumbToken();
-        RestTemplate restTemplate = new RestTemplate();
+ @RequestMapping("/to-be-redirected")
+public RedirectView localRedirect() {
+    RedirectView redirectView = new RedirectView();
+    redirectView.setUrl("http://www.yahoo.com");
+    return redirectView;
+}
+*/
 
-        log.debug(alexaRegister.getDumbToken());
+    @RequestMapping("/redirect")
+    public RedirectView redirectToExternalUrl(@ModelAttribute("alexaRegister") AlexaRegister alexaRegister) throws URISyntaxException {
 
-        String result;
-        try {
-            log.debug(url + parameter);
-            result = new ObjectMapper().readValue(restTemplate.getForObject(url + parameter, String.class), String.class);
-        } catch (IOException e) {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(alexaRegister.getUri() + "?state=" + alexaRegister.getState() + "&code=" + alexaRegister.getDumbToken());
 
-            throw new RuntimeException();
-        }
+        log.debug(redirectView.toString());
 
-        return result;
-    }
+        return redirectView;
+}
 
 }
 
